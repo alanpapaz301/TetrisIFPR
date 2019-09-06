@@ -21,7 +21,7 @@ int main(){
     int posI, posJ;
 
     //posicao inicial do personagem
-    posI = 0;
+    posI = 1;
     posJ = COLUMNS/2;
     //inicializando matriz
     init(matrix);
@@ -29,22 +29,22 @@ int main(){
 
     //esconder cursor da tela
     ShowConsoleCursor(0);
-    system("cls");
+    //system("cls");
     while(1){
-        gotoxy(0,0);
+        if(posI == ROWS - 1)posI = 1; 
+        while(posI < ROWS - 1){
+            gotoxy(0,0);
 
-        matrix[posI][posJ] = '@';
+            matrix[posI][posJ] = '@';
 
-        printMatrix(matrix);
+            printMatrix(matrix);
 
-        matrix[posI][posJ] = ' ';
-        
-        if(posI < ROWS) posI++;
+            matrix[posI][posJ] = ' ';
+            
+            posI++;
 
        }
-        if(posI==ROWS){
-            posI = 0;
-        }
+    }
     system("pause");
 
     return 0;

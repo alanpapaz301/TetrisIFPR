@@ -16,8 +16,13 @@ void init(char matrix[ROWS][COLUMNS]){
     int i,j;
 
     for(i=0; i<ROWS; i++){
+        
         for(j=0; j<COLUMNS; j++){
             matrix[i][j] = ' ';
+           matrix[i][0] = '*';
+           matrix[0][j] = '*';
+            matrix[ROWS-1][j] = '*';
+            matrix[i][COLUMNS-1] = '*';
         }
     }
 }
