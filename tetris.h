@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <conio.h>
 //Configuração das dimensões da matriz principal do jogo
 #define COLUMNS 60
 #define ROWS 25
