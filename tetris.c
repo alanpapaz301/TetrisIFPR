@@ -26,8 +26,9 @@ void init(char matrix[ROWS][COLUMNS]){
         }
     }
 }
-void mark(char matrix[ROWS][COLUMNS],int row,int col){
-    matrix[row][col] = '@';
+void mark(char matrix[ROWS][COLUMNS],int row,int col,char symbol){
+    matrix[row][col] = symbol;
+    
 }
 /*
     Mostra o conteúdo da matriz principal na tela 

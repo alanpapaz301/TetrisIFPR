@@ -16,9 +16,10 @@
 */
 int main(){
     char matrix[ROWS][COLUMNS];
-    int posI, posJ;
+    int posI, posJ,aux;
     char dir = 'A';
-    int aux;
+    char symbol = 254;
+    int frames = 9000;
     int maxR = ROWS - 2;
     //posicao inicial do personagem
     posI = 1;
@@ -28,34 +29,43 @@ int main(){
 
     //esconder cursor da tela
     ShowConsoleCursor(0);
-    for(aux=0;aux<9001;aux++){  
-        if(aux==9000){
+    for(aux=0;aux<=frames;aux++){  
+        if(aux==frames){
             gotoxy(0,0);
-            matrix[posI][posJ] = '@';
+            matrix[posI][posJ] = symbol;
             printMatrix(matrix);
             matrix[posI][posJ] = ' ';
             posI++;
-            if(posI == maxR){
-                mark(matrix,posI,posJ);
+            if(posI == maxR | matrix[posI + 1][posJ] == symbol){
+                mark(matrix,posI,posJ,symbol);
                 posI = 1;
+                if(frames>1500)frames -=500;
+                
+
             }
-            
             aux = 0;
         }
         //leitura da tecla pressionada
         if(kbhit()) dir=getch();
         //movimento a esquerda
-        if(dir == 'A'){
+        if(dir == 'a' | dir == 'A'){
             posJ--;
-            dir = 'P';
+            dir = ' ';
             if(posJ == COLUMNS - (COLUMNS -1))posJ = 58;
              }
         //movimento a direita     
-        if(dir == 'D'){
+        if(dir == 'd' | dir=='D'){
             posJ++;
-            dir = 'P';
+            dir = ' ';
             if(posJ == COLUMNS - 1)posJ = 1;
             }
+        if(dir == 's' |dir == 'S'){
+            int framesBackup = frames;
+            frames = 1500;
+            dir = ' ';           
+            frames = framesBackup;
+        }   
+    
     }
     
     system("pause");

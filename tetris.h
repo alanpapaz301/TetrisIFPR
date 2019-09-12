@@ -12,7 +12,7 @@
 #include <conio.h>
 //Configuração das dimensões da matriz principal do jogo
 #define COLUMNS 60
-#define ROWS 25
+#define ROWS 25 
 
 /*
     Inicializa a matriz principal com 'espaços vazios'
