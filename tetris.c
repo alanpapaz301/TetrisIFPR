@@ -30,6 +30,22 @@ void mark(char matrix[ROWS][COLUMNS],int row,int col,char symbol){
     matrix[row][col] = symbol;
     
 }
+void FullRow(char matrix[ROWS][COLUMNS],int row,int col,char symbol){
+    int j,i,cont,n;
+       
+    for(i=ROWS; i>1; i--){
+        cont = 0;   
+        for(j=1; j<COLUMNS - 2; j++){
+            if(matrix[i][j]==symbol)cont++;
+            
+        }
+        if(cont >= COLUMNS - 3){    
+            for(n = 1; n<COLUMNS -2; n++){
+            matrix[i][n] = ' ';
+            }
+        }
+    }   
+}
 /*
     Mostra o conteúdo da matriz principal na tela 
     do computador.

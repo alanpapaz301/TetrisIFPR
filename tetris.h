@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <conio.h>
 //Configuração das dimensões da matriz principal do jogo
-#define COLUMNS 60
+#define COLUMNS 20
 #define ROWS 25 
 
 /*

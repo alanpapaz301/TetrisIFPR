@@ -3,7 +3,7 @@
     no console (terminal de comandos)
 
     Para executar:
-        > start programa.exe
+        > start tetris.exe
 
 
 */
@@ -18,9 +18,8 @@ int main(){
     char matrix[ROWS][COLUMNS];
     int posI, posJ,aux;
     char dir = 'A';
-    char symbol = 254;
+    char symbol = '#';
     int frames = 9000;
-    int maxR = ROWS - 2;
     //posicao inicial do personagem
     posI = 1;
     posJ = COLUMNS/2;
@@ -36,7 +35,7 @@ int main(){
             printMatrix(matrix);
             matrix[posI][posJ] = ' ';
             posI++;
-            if(posI == maxR | matrix[posI + 1][posJ] == symbol){
+            if(posI == ROWS - 2 || matrix[posI + 1][posJ] == symbol){
                 mark(matrix,posI,posJ,symbol);
                 posI = 1;
                 if(frames>1500)frames -=500;
@@ -45,23 +44,26 @@ int main(){
             }
             aux = 0;
         }
+        FullRow(matrix,posI,posJ,symbol);
         //leitura da tecla pressionada
         if(kbhit()) dir=getch();
         //movimento a esquerda
-        if(dir == 'a' | dir == 'A'){
-            posJ--;
-            dir = ' ';
-            if(posJ == COLUMNS - (COLUMNS -1))posJ = 58;
-             }
-        //movimento a direita     
-        if(dir == 'd' | dir=='D'){
-            posJ++;
-            dir = ' ';
-            if(posJ == COLUMNS - 1)posJ = 1;
+            if(matrix[posI][posJ-1]!=symbol && posJ>1){
+                if(dir == 'a' | dir == 'A'){
+                    posJ--;
+                    dir = ' ';
+                }
             }
+        //movimento a direita     
+            if(matrix[posI][posJ+1] !=symbol && posJ<COLUMNS-2){
+                if(dir == 'd' | dir=='D'){
+                    posJ++;
+                    dir = ' ';
+            }   }
+           
         if(dir == 's' |dir == 'S'){
             int framesBackup = frames;
-            frames = 1500;
+            frames = 500;
             dir = ' ';           
             frames = framesBackup;
         }   
