@@ -1,11 +1,3 @@
-/*
-    Jogo interativo Tetris implementado em linguagem C para uso 
-    no console (terminal de comandos)
-
-    Autor: Augusto Luengo Pereira Nunes
-    Data: 28/08/2019
-
-*/
 
 #include "tetris.h"
 
@@ -30,21 +22,23 @@ void mark(char matrix[ROWS][COLUMNS],int row,int col,char symbol){
     matrix[row][col] = symbol;
     
 }
-void FullRow(char matrix[ROWS][COLUMNS],int row,int col,char symbol){
+int FullRow(char matrix[ROWS][COLUMNS],int row,int col,char symbol,int speedControl){
     int j,i,cont,n;
        
     for(i=ROWS; i>1; i--){
         cont = 0;   
-        for(j=1; j<COLUMNS - 2; j++){
+        for(j=1; j<COLUMNS - 1; j++){
             if(matrix[i][j]==symbol)cont++;
             
         }
-        if(cont >= COLUMNS - 3){    
-            for(n = 1; n<COLUMNS -2; n++){
+        if(cont >= COLUMNS - 2){  
+			if(speedControl>1500)speedControl -=500;
+            for(n = 1; n<COLUMNS -1; n++){
             matrix[i][n] = ' ';
             }
         }
-    }   
+    }
+	return speedControl;
 }
 /*
     Mostra o conteúdo da matriz principal na tela 

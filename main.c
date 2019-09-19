@@ -12,14 +12,14 @@
 
 /*
     Parte principal do programa, responsável por iniciar e 
-    chamar as funções auxiliares.
+    chamar as funções runTimeiliares.
 */
 int main(){
     char matrix[ROWS][COLUMNS];
-    int posI, posJ,aux;
+    int posI, posJ,runTime;
     char dir = 'A';
     char symbol = '#';
-    int frames = 9000;
+    int speedControl = 9000;
     //posicao inicial do personagem
     posI = 1;
     posJ = COLUMNS/2;
@@ -28,8 +28,8 @@ int main(){
 
     //esconder cursor da tela
     ShowConsoleCursor(0);
-    for(aux=0;aux<=frames;aux++){  
-        if(aux==frames){
+    for(runTime=0;runTime<=speedControl;runTime++){  
+        if(runTime==speedControl){
             gotoxy(0,0);
             matrix[posI][posJ] = symbol;
             printMatrix(matrix);
@@ -38,13 +38,15 @@ int main(){
             if(posI == ROWS - 2 || matrix[posI + 1][posJ] == symbol){
                 mark(matrix,posI,posJ,symbol);
                 posI = 1;
-                if(frames>1500)frames -=500;
+                
                 
 
             }
-            aux = 0;
+            runTime = 0;
         }
-        FullRow(matrix,posI,posJ,symbol);
+        FullRow(matrix,posI,posJ,symbol,speedControl);
+		//Aumenta a velocidade a cada fileira preenchida
+		speedControl = FullRow(matrix,posI,posJ,symbol,speedControl);
         //leitura da tecla pressionada
         if(kbhit()) dir=getch();
         //movimento a esquerda
@@ -60,12 +62,12 @@ int main(){
                     posJ++;
                     dir = ' ';
             }   }
-           
+        //aumenta a velocidade da desçida da peça   
         if(dir == 's' |dir == 'S'){
-            int framesBackup = frames;
-            frames = 500;
+            int speedControlBackup = speedControl;
+            speedControl = 500;
             dir = ' ';           
-            frames = framesBackup;
+            speedControl = speedControlBackup;
         }   
     
     }
