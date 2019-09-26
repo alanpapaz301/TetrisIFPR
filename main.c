@@ -16,7 +16,7 @@
 */
 int main(){
     char matrix[ROWS][COLUMNS];
-    int posI, posJ,runTime;
+    int posI, posJ,runTime,symbolWidth,i,j;
     char dir = 'A';
     char symbol = '#';
     int speedControl = 9000;
@@ -31,7 +31,7 @@ int main(){
     for(runTime=0;runTime<=speedControl;runTime++){  
         if(runTime==speedControl){
             gotoxy(0,0);
-            matrix[posI][posJ] = symbol;
+            matrix[posI+i][posJ] = symbol;
             printMatrix(matrix);
             matrix[posI][posJ] = ' ';
             posI++;

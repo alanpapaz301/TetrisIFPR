@@ -22,6 +22,7 @@ void mark(char matrix[ROWS][COLUMNS],int row,int col,char symbol){
     matrix[row][col] = symbol;
     
 }
+//Manda as peças para baixo após limpeza da fileira
 void DownRow(char matrix[ROWS][COLUMNS]){
     int i,j;
 
