@@ -22,6 +22,20 @@ void mark(char matrix[ROWS][COLUMNS],int row,int col,char symbol){
     matrix[row][col] = symbol;
     
 }
+void DownRow(char matrix[ROWS][COLUMNS]){
+    int i,j;
+
+    for(i = ROWS-2; i>1;i--){
+        for(j = 1;j<COLUMNS-1;j++){
+            if(i>1) matrix[i][j] = matrix[i-1][j];
+
+
+
+        }
+
+    }
+
+}
 int FullRow(char matrix[ROWS][COLUMNS],int row,int col,char symbol,int speedControl){
     int j,i,cont,n;
        
@@ -36,6 +50,7 @@ int FullRow(char matrix[ROWS][COLUMNS],int row,int col,char symbol,int speedCont
             for(n = 1; n<COLUMNS -1; n++){
             matrix[i][n] = ' ';
             }
+           DownRow(matrix);
         }
     }
 	return speedControl;
