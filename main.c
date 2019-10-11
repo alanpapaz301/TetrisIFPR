@@ -15,14 +15,20 @@
     chamar as funções runTimeiliares.
 */
 int main(){
+	Block bloco;
     char matrix[ROWS][COLUMNS];
-    int posI, posJ,runTime,symbolWidth,i,j;
+    int runTime,symbolWidth,i,j,count;
     char dir = 'A';
     char symbol = '#';
-    int speedControl = 9000;
-    //posicao inicial do personagem
-    posI = 1;
-    posJ = COLUMNS/2;
+    int speedControl = 6000;
+    //bloco.icao inicial do personagem
+    bloco.i = 1;
+    bloco.j = COLUMNS/2;
+    bloco.tipo = TIPO_I;
+    bloco.orientacao = ORIENTACAO_UP;
+    bloco.width = 1;
+    bloco.height = 4;
+	count = 2;
     //inicializando matriz
     init(matrix);
 
@@ -31,39 +37,44 @@ int main(){
     for(runTime=0;runTime<=speedControl;runTime++){  
         if(runTime==speedControl){
             gotoxy(0,0);
-            matrix[posI+i][posJ] = symbol;
+            drawBlock(matrix,symbol,count,bloco);
+			count++;
             printMatrix(matrix);
-            matrix[posI][posJ] = ' ';
-            posI++;
-            if(posI == ROWS - 2 || matrix[posI + 1][posJ] == symbol){
-                mark(matrix,posI,posJ,symbol);
-                posI = 1;
+            drawBlock(matrix,symbol,count,bloco);
+			count++;
+            bloco.i++;
+			
+			//Marcação das peças no final da matriz
+            if(bloco.i == ROWS - 2 || matrix[bloco.i + 1][bloco.j] == symbol){
+                mark(matrix,bloco.i,bloco.j,symbol,bloco);
+                bloco.i = 1;
                 
                 
 
             }
             runTime = 0;
         }
-        FullRow(matrix,posI,posJ,symbol,speedControl);
+        FullRow(matrix,bloco.i,bloco.j,symbol,speedControl);
 		//Aumenta a velocidade a cada fileira preenchida
-		speedControl = FullRow(matrix,posI,posJ,symbol,speedControl);
+		speedControl = FullRow(matrix,bloco.i,bloco.j,symbol,speedControl);
         //leitura da tecla pressionada
         if(kbhit()) dir=getch();
         //movimento a esquerda
-            if(matrix[posI][posJ-1]!=symbol && posJ>1){
-                if(dir == 'a' | dir == 'A'){
-                    posJ--;
+            if(matrix[bloco.i][bloco.j-1]!=symbol && bloco.j>1){
+                if(dir == LEFT | dir == LEFT_C){
+                    bloco.j--;
                     dir = ' ';
                 }
             }
         //movimento a direita     
-            if(matrix[posI][posJ+1] !=symbol && posJ<COLUMNS-2){
-                if(dir == 'd' | dir=='D'){
-                    posJ++;
+            if(matrix[bloco.i][bloco.j+1] !=symbol && bloco.j<COLUMNS-2){
+                if(dir == RIGHT | dir== RIGHT_C){
+                    bloco.j++;
                     dir = ' ';
-            }   }
+				}   
+			}
         //aumenta a velocidade da desçida da peça   
-        if(dir == 's' |dir == 'S'){
+        if(dir == DOWN |dir == DOWN_C){
             int speedControlBackup = speedControl;
             speedControl = 500;
             dir = ' ';           
@@ -74,4 +85,4 @@ int main(){
     
     system("pause");
     return 0;
-}
+	}
