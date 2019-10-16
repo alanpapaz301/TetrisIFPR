@@ -24,8 +24,8 @@ int main(){
     //bloco.icao inicial do personagem
     bloco.i = 1;
     bloco.j = COLUMNS/2;
-    bloco.tipo = TIPO_I;
-    bloco.orientacao = ORIENTACAO_UP;
+    bloco.tipo = 7;
+    bloco.orientacao = 4;
     bloco.width = 1;
     bloco.height = 4;
 	count = 2;
@@ -34,31 +34,36 @@ int main(){
 
     //esconder cursor da tela
     ShowConsoleCursor(0);
+	
     for(runTime=0;runTime<=speedControl;runTime++){  
         if(runTime==speedControl){
             gotoxy(0,0);
-            drawBlock(matrix,symbol,count,bloco);
+			selectPiece(matrix,symbol,bloco.tipo,count,bloco);
 			count++;
             printMatrix(matrix);
-            drawBlock(matrix,symbol,count,bloco);
+            selectPiece(matrix,symbol,bloco.tipo,count,bloco);
 			count++;
             bloco.i++;
 			
 			//Marcação das peças no final da matriz
-            if(bloco.i == ROWS - 2 || matrix[bloco.i + 1][bloco.j] == symbol){
-                mark(matrix,bloco.i,bloco.j,symbol,bloco);
+            if(bloco.i == ROWS - 2 || checkCollision(matrix,symbol,bloco) == 1){
+                mark(matrix,symbol,bloco);
                 bloco.i = 1;
-                
-                
-
+				bloco.j = COLUMNS/2;
             }
             runTime = 0;
         }
-        FullRow(matrix,bloco.i,bloco.j,symbol,speedControl);
+			FullRow(matrix,bloco.i,bloco.j,symbol,speedControl);
 		//Aumenta a velocidade a cada fileira preenchida
 		speedControl = FullRow(matrix,bloco.i,bloco.j,symbol,speedControl);
         //leitura da tecla pressionada
         if(kbhit()) dir=getch();
+			//Mudança de orientação
+			if(dir == 'f'){
+				if (bloco.orientacao == 4) bloco.orientacao = 1;
+				else bloco.orientacao++;
+				dir = ' ';
+			}
         //movimento a esquerda
             if(matrix[bloco.i][bloco.j-1]!=symbol && bloco.j>1){
                 if(dir == LEFT | dir == LEFT_C){

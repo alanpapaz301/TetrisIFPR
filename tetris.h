@@ -13,11 +13,12 @@
 #define DOWN 73
 #define DOWN_C 53
 #define SPACE 32
+#define CHANGE_ORIENTATION 46
 //Criando as orientações para as peças
 #define ORIENTACAO_UP 1
-#define ORIENTACAO_DOWN 2
-#define ORIENTACAO_LEFT 3
-#define ORIENTACAO_RIGHT 4
+#define ORIENTACAO_RIGHT 2
+#define ORIENTACAO_DOWN 3
+#define ORIENTACAO_LEFT 4
 //Criando os tipos de peças
 #define TIPO_L 1
 #define TIPO_L_R 2 // L reverso
@@ -40,8 +41,9 @@ typedef struct{
 void init(char matrix[ROWS][COLUMNS]);
 //Desenho de bloco
 void drawBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco);
+void eraseBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco);
 //Marcação de peças ao chegarem na ultima fileira ou encontrarem outra peça
-void mark(char matrix[ROWS][COLUMNS],int row,int col,char symbol,Block bloco);
+void mark(char matrix[ROWS][COLUMNS],char symbol,Block bloco);
 //Manda as peças para baixo após esvaziar a fileira
 void DownRow(char matrix[ROWS][COLUMNS]);
 //Limpa a ultima linha quando é preenchida,aumenta a velocidade da animação, faltando trazer as peças de cima para baixo
