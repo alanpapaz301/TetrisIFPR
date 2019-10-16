@@ -24,21 +24,19 @@ void drawBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco){
 		switch(bloco.orientacao){
 			case ORIENTACAO_DOWN:
             case ORIENTACAO_UP:
+				if(bloco.i-3>=1) matrix[bloco.i-4][bloco.j] = symbol;
                 if(bloco.i-3>=1) matrix[bloco.i-3][bloco.j] = symbol;
                 if(bloco.i-2>=1) matrix[bloco.i-2][bloco.j] = symbol;
                 if(bloco.i-1>=1) matrix[bloco.i-1][bloco.j] = symbol;
                 matrix[bloco.i][bloco.j] = symbol;
                 break;
 			case ORIENTACAO_LEFT:
-				if(bloco.j-3>=1) matrix[bloco.i][bloco.j-3] = symbol;
-                if(bloco.j-2>=1) matrix[bloco.i][bloco.j-2] = symbol;
-                if(bloco.j-1>=1) matrix[bloco.i][bloco.j-1] = symbol;
-                matrix[bloco.i][bloco.j] = symbol;
-				break;
 			case ORIENTACAO_RIGHT:
-				if(bloco.j-3>=1) matrix[bloco.i][bloco.j+3] = symbol;
-                if(bloco.j-2>=1) matrix[bloco.i][bloco.j+2] = symbol;
-                if(bloco.j-1>=1) matrix[bloco.i][bloco.j+1] = symbol;
+					matrix[bloco.i][bloco.j+2] = symbol;
+					matrix[bloco.i][bloco.j+1] = symbol;
+					matrix[bloco.i][bloco.j-2] = symbol;
+					matrix[bloco.i][bloco.j-1] = symbol;
+					matrix[bloco.i][bloco.j] = symbol;
                 matrix[bloco.i][bloco.j] = symbol;
 				break;
 
@@ -52,21 +50,19 @@ void eraseBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco){
 		switch(bloco.orientacao){
 			case ORIENTACAO_DOWN:
             case ORIENTACAO_UP:
+				if(bloco.i-3>=0) matrix[bloco.i-4][bloco.j] = ' ';
                 if(bloco.i-3>=0) matrix[bloco.i-3][bloco.j] = ' ';
                 if(bloco.i-2>=0) matrix[bloco.i-2][bloco.j] = ' ';
                 if(bloco.i-1>=0) matrix[bloco.i-1][bloco.j] = ' ';
                 matrix[bloco.i][bloco.j] = ' ';
                 break;
 			case ORIENTACAO_LEFT:
-				if(bloco.j-3>=0) matrix[bloco.i][bloco.j-3] = ' ';
-                if(bloco.j-2>=0) matrix[bloco.i][bloco.j-2] = ' ';
-                if(bloco.j-1>=0) matrix[bloco.i][bloco.j-1] = ' ';
-                matrix[bloco.i][bloco.j] = ' ';
-				break;
 			case ORIENTACAO_RIGHT:
-				if(bloco.j-3>=1) matrix[bloco.i][bloco.j+3] = ' ';
-                if(bloco.j-2>=1) matrix[bloco.i][bloco.j+2] = ' ';
-                if(bloco.j-1>=1) matrix[bloco.i][bloco.j+1] = ' ';
+					matrix[bloco.i][bloco.j+2] = ' ';
+					matrix[bloco.i][bloco.j+1] = ' ';
+					matrix[bloco.i][bloco.j-2] = ' ';
+					matrix[bloco.i][bloco.j-1] = ' ';
+					matrix[bloco.i][bloco.j] = ' ';
                 matrix[bloco.i][bloco.j] = ' ';
 				break;
 
@@ -90,12 +86,9 @@ int checkCollision(char matrix[ROWS][COLUMNS],char symbol,Block bloco){
 				if(matrix[bloco.i+1][bloco.j] == symbol)return 1; break;
 					
 				case ORIENTACAO_LEFT:
-				if(matrix[bloco.i + 1][bloco.j] == symbol || matrix[bloco.i + 1][bloco.j-1] == symbol || matrix[bloco.i + 1][bloco.j-2] == symbol || matrix[bloco.i + 1][bloco.j-3] == symbol){
-					return 1;
-				}
-				break;
 				case ORIENTACAO_RIGHT:
-				if(matrix[bloco.i + 1][bloco.j] == symbol || matrix[bloco.i + 1][bloco.j+1] == symbol || matrix[bloco.i + 1][bloco.j+2] == symbol || matrix[bloco.i + 1][bloco.j+3] == symbol){
+				if(matrix[bloco.i + 1][bloco.j] == symbol || matrix[bloco.i + 1][bloco.j+1] == symbol || matrix[bloco.i + 1][bloco.j+2] == symbol 
+				|| matrix[bloco.i + 1][bloco.j-1] == symbol|| matrix[bloco.i + 1][bloco.j-2] == symbol){
 					return 1;
 				}
 				break;
@@ -108,22 +101,19 @@ void mark(char matrix[ROWS][COLUMNS],char symbol,Block bloco){
 			switch(bloco.orientacao){
 				case ORIENTACAO_DOWN:
 				case ORIENTACAO_UP:
+					matrix[bloco.i-4][bloco.j] = symbol;
 					matrix[bloco.i-3][bloco.j] = symbol;
 					matrix[bloco.i-2][bloco.j] = symbol;
 					matrix[bloco.i-1][bloco.j] = symbol;
 					matrix[bloco.i][bloco.j] = symbol;
 					break;
 				case ORIENTACAO_LEFT:
-					matrix[bloco.i][bloco.j-3] = symbol;
+				case ORIENTACAO_RIGHT:
+					matrix[bloco.i][bloco.j+2] = symbol;
+					matrix[bloco.i][bloco.j+1] = symbol;
 					matrix[bloco.i][bloco.j-2] = symbol;
 					matrix[bloco.i][bloco.j-1] = symbol;
 					matrix[bloco.i][bloco.j] = symbol;
-					break;
-				case ORIENTACAO_RIGHT:
-					matrix[bloco.i][bloco.j] = symbol;
-					matrix[bloco.i][bloco.j+1] = symbol;
-					matrix[bloco.i][bloco.j+2] = symbol;
-					matrix[bloco.i][bloco.j+3] = symbol;
 					break;
 			}
 		}
@@ -177,5 +167,6 @@ void printMatrix(char matrix[ROWS][COLUMNS]){
         }
 
         printf("\n");
-    }
+		
+		}
 }

@@ -17,18 +17,18 @@
 int main(){
 	Block bloco;
     char matrix[ROWS][COLUMNS];
-    int runTime,symbolWidth,i,j,count;
+    int runTime,symbolWidth,i,j,score,aux;
     char dir = 'A';
     char symbol = '#';
     int speedControl = 6000;
+	score = 0;
     //bloco.icao inicial do personagem
     bloco.i = 1;
     bloco.j = COLUMNS/2;
     bloco.tipo = 7;
     bloco.orientacao = 4;
-    bloco.width = 1;
-    bloco.height = 4;
-	count = 2;
+    bloco.width = 5;
+    bloco.height = 1;
     //inicializando matriz
     init(matrix);
 
@@ -38,11 +38,10 @@ int main(){
     for(runTime=0;runTime<=speedControl;runTime++){  
         if(runTime==speedControl){
             gotoxy(0,0);
-			selectPiece(matrix,symbol,bloco.tipo,count,bloco);
-			count++;
+			selectPiece(matrix,symbol,bloco.tipo,2,bloco);
             printMatrix(matrix);
-            selectPiece(matrix,symbol,bloco.tipo,count,bloco);
-			count++;
+			printf("SCORE: %d",score);
+            selectPiece(matrix,symbol,bloco.tipo,1,bloco);
             bloco.i++;
 			
 			//Marcação das peças no final da matriz
@@ -62,17 +61,20 @@ int main(){
 			if(dir == 'f'){
 				if (bloco.orientacao == 4) bloco.orientacao = 1;
 				else bloco.orientacao++;
+				aux = bloco.width;
+				bloco.width = bloco.height;
+				bloco.height = aux;
 				dir = ' ';
 			}
         //movimento a esquerda
-            if(matrix[bloco.i][bloco.j-1]!=symbol && bloco.j>1){
+            if(matrix[bloco.i][bloco.j-bloco.width/2]!=symbol && bloco.j-bloco.width/2>1){
                 if(dir == LEFT | dir == LEFT_C){
                     bloco.j--;
                     dir = ' ';
                 }
             }
         //movimento a direita     
-            if(matrix[bloco.i][bloco.j+1] !=symbol && bloco.j<COLUMNS-2){
+            if(matrix[bloco.i][bloco.j+bloco.width/2] !=symbol && bloco.j+bloco.width/2<COLUMNS-2){
                 if(dir == RIGHT | dir== RIGHT_C){
                     bloco.j++;
                     dir = ' ';
