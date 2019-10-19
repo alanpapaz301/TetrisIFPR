@@ -20,12 +20,12 @@ int main(){
     int runTime,symbolWidth,i,j,score,aux;
     char dir = 'A';
     char symbol = '#';
-    int speedControl = 6000;
+    int speedControl = 9000;
 	score = 0;
     //bloco.icao inicial do personagem
     bloco.i = 1;
     bloco.j = COLUMNS/2;
-    bloco.tipo = 7;
+    bloco.tipo = 6;
     bloco.orientacao = 4;
     bloco.width = 5;
     bloco.height = 1;
@@ -38,10 +38,10 @@ int main(){
     for(runTime=0;runTime<=speedControl;runTime++){  
         if(runTime==speedControl){
             gotoxy(0,0);
-			selectPiece(matrix,symbol,bloco.tipo,2,bloco);
+			drawBlock(matrix,symbol,2,bloco);
             printMatrix(matrix);
 			printf("SCORE: %d",score);
-            selectPiece(matrix,symbol,bloco.tipo,1,bloco);
+            drawBlock(matrix,symbol,1,bloco);
             bloco.i++;
 			
 			//Marcação das peças no final da matriz
@@ -52,9 +52,7 @@ int main(){
             }
             runTime = 0;
         }
-			FullRow(matrix,bloco.i,bloco.j,symbol,speedControl);
-		//Aumenta a velocidade a cada fileira preenchida
-		speedControl = FullRow(matrix,bloco.i,bloco.j,symbol,speedControl);
+
         //leitura da tecla pressionada
         if(kbhit()) dir=getch();
 			//Mudança de orientação

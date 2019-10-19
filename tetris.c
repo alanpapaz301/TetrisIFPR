@@ -20,26 +20,36 @@ void init(char matrix[ROWS][COLUMNS]){
 }
 //Desenha blocos tipo I
 void drawBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco){
-	if(count%2 == 0 ){
-		switch(bloco.orientacao){
-			case ORIENTACAO_DOWN:
-            case ORIENTACAO_UP:
-				if(bloco.i-3>=1) matrix[bloco.i-4][bloco.j] = symbol;
-                if(bloco.i-3>=1) matrix[bloco.i-3][bloco.j] = symbol;
-                if(bloco.i-2>=1) matrix[bloco.i-2][bloco.j] = symbol;
-                if(bloco.i-1>=1) matrix[bloco.i-1][bloco.j] = symbol;
-                matrix[bloco.i][bloco.j] = symbol;
-                break;
-			case ORIENTACAO_LEFT:
-			case ORIENTACAO_RIGHT:
-					matrix[bloco.i][bloco.j+2] = symbol;
-					matrix[bloco.i][bloco.j+1] = symbol;
-					matrix[bloco.i][bloco.j-2] = symbol;
-					matrix[bloco.i][bloco.j-1] = symbol;
+	if(count == 2 ){
+		switch(bloco.tipo){
+			case TIPO_O:
+			if(bloco.i - 1>=1)matrix[bloco.i][bloco.j] = symbol;
+			if(bloco.i - 1>=1)matrix[bloco.i][bloco.j+1] = symbol;
+			if(bloco.i - 1>=1)matrix[bloco.i+1][bloco.j] = symbol;
+			if(bloco.i - 1>=1)matrix[bloco.i+1][bloco.j+1] = symbol;
+			break;
+			
+		case TIPO_I:
+			switch(bloco.orientacao){
+				case ORIENTACAO_DOWN:
+				case ORIENTACAO_UP:
+					if(bloco.i-3>=1) matrix[bloco.i-4][bloco.j] = symbol;
+					if(bloco.i-3>=1) matrix[bloco.i-3][bloco.j] = symbol;
+					if(bloco.i-2>=1) matrix[bloco.i-2][bloco.j] = symbol;
+					if(bloco.i-1>=1) matrix[bloco.i-1][bloco.j] = symbol;
 					matrix[bloco.i][bloco.j] = symbol;
-                matrix[bloco.i][bloco.j] = symbol;
-				break;
+					break;
+				case ORIENTACAO_LEFT:
+				case ORIENTACAO_RIGHT:
+						matrix[bloco.i][bloco.j+2] = symbol;
+						matrix[bloco.i][bloco.j+1] = symbol;
+						matrix[bloco.i][bloco.j-2] = symbol;
+						matrix[bloco.i][bloco.j-1] = symbol;
+						matrix[bloco.i][bloco.j] = symbol;
+					matrix[bloco.i][bloco.j] = symbol;
+					break;
 
+			}
 		}
 	}
 	else eraseBlock(matrix,symbol,count,bloco);
@@ -47,56 +57,78 @@ void drawBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco){
 }
 //Apaga blocos tipoI
 void eraseBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco){
-		switch(bloco.orientacao){
-			case ORIENTACAO_DOWN:
-            case ORIENTACAO_UP:
-				if(bloco.i-3>=0) matrix[bloco.i-4][bloco.j] = ' ';
-                if(bloco.i-3>=0) matrix[bloco.i-3][bloco.j] = ' ';
-                if(bloco.i-2>=0) matrix[bloco.i-2][bloco.j] = ' ';
-                if(bloco.i-1>=0) matrix[bloco.i-1][bloco.j] = ' ';
-                matrix[bloco.i][bloco.j] = ' ';
-                break;
-			case ORIENTACAO_LEFT:
-			case ORIENTACAO_RIGHT:
-					matrix[bloco.i][bloco.j+2] = ' ';
-					matrix[bloco.i][bloco.j+1] = ' ';
-					matrix[bloco.i][bloco.j-2] = ' ';
-					matrix[bloco.i][bloco.j-1] = ' ';
+		
+		
+		if(bloco.tipo == TIPO_O){
+				if(bloco.i - 1>=1)matrix[bloco.i][bloco.j] = ' ';
+				if(bloco.i - 1>=1)matrix[bloco.i][bloco.j+1] = ' ';
+				if(bloco.i - 1>=1)matrix[bloco.i+1][bloco.j] = ' ';
+				if(bloco.i - 1>=1)matrix[bloco.i+1][bloco.j+1] = ' ';
+		}
+		if(bloco.tipo = TIPO_I){
+			switch(bloco.orientacao){
+				case ORIENTACAO_DOWN:
+				case ORIENTACAO_UP:
+					if(bloco.i-3>=0) matrix[bloco.i-4][bloco.j] = ' ';
+					if(bloco.i-3>=0) matrix[bloco.i-3][bloco.j] = ' ';
+					if(bloco.i-2>=0) matrix[bloco.i-2][bloco.j] = ' ';
+					if(bloco.i-1>=0) matrix[bloco.i-1][bloco.j] = ' ';
 					matrix[bloco.i][bloco.j] = ' ';
-                matrix[bloco.i][bloco.j] = ' ';
-				break;
+					break;
+				case ORIENTACAO_LEFT:
+				case ORIENTACAO_RIGHT:
+						matrix[bloco.i][bloco.j+2] = ' ';
+						matrix[bloco.i][bloco.j+1] = ' ';
+						matrix[bloco.i][bloco.j-2] = ' ';
+						matrix[bloco.i][bloco.j-1] = ' ';
+						matrix[bloco.i][bloco.j] = ' ';
+					matrix[bloco.i][bloco.j] = ' ';
+					break;
 
+			}
 		}
 }
-//chama a função para desenho da peça selecionada
-void selectPiece(char matrix[ROWS][COLUMNS],char symbol,int piece,int count,Block bloco){
-	switch(piece){
-		case TIPO_I:drawBlock(matrix,symbol,count,bloco);break;
-	
-	
-	
-	}
-}
 int checkCollision(char matrix[ROWS][COLUMNS],char symbol,Block bloco){
-
+	int i;
 	
-	switch(bloco.orientacao){
+	
+	if(bloco.tipo == TIPO_O){
+		if(matrix[bloco.i+1][bloco.j] == symbol || matrix[bloco.i+1][bloco.j+1] == symbol || bloco.i == ROWS - 2){
+			mark(matrix,symbol,bloco); 
+			return 1;
+		}
+	}
+	if(bloco.tipo == TIPO_I){
+		switch(bloco.orientacao){
 				case ORIENTACAO_DOWN:
 				case ORIENTACAO_UP:
 				if(matrix[bloco.i+1][bloco.j] == symbol)return 1; break;
 					
 				case ORIENTACAO_LEFT:
 				case ORIENTACAO_RIGHT:
-				if(matrix[bloco.i + 1][bloco.j] == symbol || matrix[bloco.i + 1][bloco.j+1] == symbol || matrix[bloco.i + 1][bloco.j+2] == symbol 
-				|| matrix[bloco.i + 1][bloco.j-1] == symbol|| matrix[bloco.i + 1][bloco.j-2] == symbol){
-					return 1;
-				}
+				for(i = -2; i<bloco.width / 2;i++){
+					if(matrix[bloco.i + 1][bloco.j] ==ROWS - 2 || matrix[bloco.i + 1][bloco.j + i] == symbol){
+						mark(matrix,symbol,bloco);
+						return 1;
+						break;				
+					}
 				break;
+				
+				}
+		}
 	}
 	return 0;
 }
 //marca peças no final da matriz ou ao baterem em outra peça
 void mark(char matrix[ROWS][COLUMNS],char symbol,Block bloco){
+		
+		
+		if(bloco.tipo == TIPO_O){
+			matrix[bloco.i][bloco.j] = symbol;
+			matrix[bloco.i][bloco.j+1] = symbol;
+			matrix[bloco.i-1][bloco.j] = symbol;
+			matrix[bloco.i-1][bloco.j+1] = symbol;
+		}
 		if(bloco.tipo == TIPO_I){
 			switch(bloco.orientacao){
 				case ORIENTACAO_DOWN:
@@ -117,7 +149,7 @@ void mark(char matrix[ROWS][COLUMNS],char symbol,Block bloco){
 					break;
 			}
 		}
-    
+		FullRow(matrix,bloco.i,bloco.j,symbol);
 }
 //Manda as peças para baixo após limpeza da fileira
 void DownRow(char matrix[ROWS][COLUMNS]){
@@ -135,7 +167,7 @@ void DownRow(char matrix[ROWS][COLUMNS]){
 
 }
 //Limpa fileira após preenchida
-int FullRow(char matrix[ROWS][COLUMNS],int row,int col,char symbol,int speedControl){
+void FullRow(char matrix[ROWS][COLUMNS],int row,int col,char symbol){
     int j,i,cont,n;
        
     for(i=ROWS; i>1; i--){
@@ -145,14 +177,12 @@ int FullRow(char matrix[ROWS][COLUMNS],int row,int col,char symbol,int speedCont
             
         }
         if(cont >= COLUMNS - 2){  
-			if(speedControl>1500)speedControl -=500;
             for(n = 1; n<COLUMNS -1; n++){
             matrix[i][n] = ' ';
             }
            DownRow(matrix);
         }
     }
-	return speedControl;
 }
 /*
     Mostra o conteúdo da matriz principal na tela 

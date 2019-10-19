@@ -42,11 +42,12 @@ void init(char matrix[ROWS][COLUMNS]);
 //Desenho de bloco
 void drawBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco);
 void eraseBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco);
+int checkCollision(char matrix[ROWS][COLUMNS],char symbol,Block bloco);
 //Marcação de peças ao chegarem na ultima fileira ou encontrarem outra peça
 void mark(char matrix[ROWS][COLUMNS],char symbol,Block bloco);
 //Manda as peças para baixo após esvaziar a fileira
 void DownRow(char matrix[ROWS][COLUMNS]);
 //Limpa a ultima linha quando é preenchida,aumenta a velocidade da animação, faltando trazer as peças de cima para baixo
-int FullRow(char matrix[ROWS][COLUMNS],int row,int col,char symbol,int speedControl);
+void FullRow(char matrix[ROWS][COLUMNS],int row,int col,char symbol);
 //Mostra o conteúdo da matriz principal na tela do computador.
 void printMatrix(char matrix[ROWS][COLUMNS]);
