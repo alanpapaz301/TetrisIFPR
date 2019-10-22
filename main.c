@@ -18,8 +18,8 @@ int main(){
 	Block bloco;
     char matrix[ROWS][COLUMNS];
     int runTime,symbolWidth,i,j,score,aux;
-    char dir = 'A';
-    char symbol = '#';
+    char dir = 'K';
+    char symbol = '@';
     int speedControl = 9000;
 	score = 0;
     //bloco.icao inicial do personagem

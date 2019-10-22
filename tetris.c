@@ -21,19 +21,17 @@ void init(char matrix[ROWS][COLUMNS]){
 //Desenha blocos tipo I
 void drawBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco){
 	if(count == 2 ){
-		switch(bloco.tipo){
-			case TIPO_O:
+		if(bloco.tipo == TIPO_O ){
+			if(bloco.i - 1>=1)matrix[bloco.i-1][bloco.j] = symbol;
+			if(bloco.i - 1>=1)matrix[bloco.i-1][bloco.j+1] = symbol;
 			if(bloco.i - 1>=1)matrix[bloco.i][bloco.j] = symbol;
 			if(bloco.i - 1>=1)matrix[bloco.i][bloco.j+1] = symbol;
-			if(bloco.i - 1>=1)matrix[bloco.i+1][bloco.j] = symbol;
-			if(bloco.i - 1>=1)matrix[bloco.i+1][bloco.j+1] = symbol;
-			break;
-			
-		case TIPO_I:
+		}	
+		if(bloco.tipo == TIPO_I ){
 			switch(bloco.orientacao){
 				case ORIENTACAO_DOWN:
 				case ORIENTACAO_UP:
-					if(bloco.i-3>=1) matrix[bloco.i-4][bloco.j] = symbol;
+					if(bloco.i-4>=1) matrix[bloco.i-4][bloco.j] = symbol;
 					if(bloco.i-3>=1) matrix[bloco.i-3][bloco.j] = symbol;
 					if(bloco.i-2>=1) matrix[bloco.i-2][bloco.j] = symbol;
 					if(bloco.i-1>=1) matrix[bloco.i-1][bloco.j] = symbol;
@@ -52,18 +50,18 @@ void drawBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco){
 			}
 		}
 	}
-	else eraseBlock(matrix,symbol,count,bloco);
+	else eraseBlock(matrix,bloco);
 		
 }
 //Apaga blocos tipoI
-void eraseBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco){
+void eraseBlock(char matrix[ROWS][COLUMNS],Block bloco){
 		
 		
 		if(bloco.tipo == TIPO_O){
-				if(bloco.i - 1>=1)matrix[bloco.i][bloco.j] = ' ';
-				if(bloco.i - 1>=1)matrix[bloco.i][bloco.j+1] = ' ';
-				if(bloco.i - 1>=1)matrix[bloco.i+1][bloco.j] = ' ';
-				if(bloco.i - 1>=1)matrix[bloco.i+1][bloco.j+1] = ' ';
+				matrix[bloco.i][bloco.j] = ' ';
+				matrix[bloco.i][bloco.j+1] = ' ';
+				matrix[bloco.i-1][bloco.j] = ' ';
+				matrix[bloco.i-1][bloco.j+1] = ' ';
 		}
 		if(bloco.tipo = TIPO_I){
 			switch(bloco.orientacao){
@@ -93,7 +91,7 @@ int checkCollision(char matrix[ROWS][COLUMNS],char symbol,Block bloco){
 	
 	
 	if(bloco.tipo == TIPO_O){
-		if(matrix[bloco.i+1][bloco.j] == symbol || matrix[bloco.i+1][bloco.j+1] == symbol || bloco.i == ROWS - 2){
+		if(matrix[bloco.i+1][bloco.j] == symbol || matrix[bloco.i+1][bloco.j+1] == symbol){
 			mark(matrix,symbol,bloco); 
 			return 1;
 		}
