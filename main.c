@@ -19,14 +19,14 @@ int main(){
     char matrix[ROWS][COLUMNS];
     int runTime,symbolWidth,i,j,score,aux;
     char dir = 'K';
-    char symbol = '@';
+    char symbol = '#';
     int speedControl = 9000;
 	score = 0;
     //bloco.icao inicial do personagem
     bloco.i = 1;
     bloco.j = COLUMNS/2;
-    bloco.tipo = 6;
-    bloco.orientacao = 4;
+    bloco.tipo = 7;
+    bloco.orientacao = 3;
     bloco.width = 5;
     bloco.height = 1;
     //inicializando matriz
@@ -43,13 +43,7 @@ int main(){
 			printf("SCORE: %d",score);
             drawBlock(matrix,symbol,1,bloco);
             bloco.i++;
-			
-			//Marcação das peças no final da matriz
-            if(bloco.i == ROWS - 2 || checkCollision(matrix,symbol,bloco) == 1){
-                mark(matrix,symbol,bloco);
-                bloco.i = 1;
-				bloco.j = COLUMNS/2;
-            }
+			bloco = checkCollision(matrix,symbol,bloco);
             runTime = 0;
         }
 
@@ -65,7 +59,7 @@ int main(){
 				dir = ' ';
 			}
         //movimento a esquerda
-            if(matrix[bloco.i][bloco.j-bloco.width/2]!=symbol && bloco.j-bloco.width/2>1){
+            if(matrix[bloco.i][bloco.j-(bloco.width/2 + 1)]!=symbol && bloco.j-bloco.width/2>1){
                 if(dir == LEFT | dir == LEFT_C){
                     bloco.j--;
                     dir = ' ';
