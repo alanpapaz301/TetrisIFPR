@@ -44,7 +44,7 @@ void drawBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco){
 						matrix[bloco.i][bloco.j-2] = symbol;
 						matrix[bloco.i][bloco.j-1] = symbol;
 						matrix[bloco.i][bloco.j] = symbol;
-					matrix[bloco.i][bloco.j] = symbol;
+						matrix[bloco.i][bloco.j] = symbol;
 					break;
 
 			}
@@ -97,27 +97,23 @@ Block checkCollision(char matrix[ROWS][COLUMNS],char symbol,Block bloco){
 		}
 	}
 	if(bloco.tipo == TIPO_I){
-		switch(bloco.orientacao){
-				case ORIENTACAO_DOWN:
-				case ORIENTACAO_UP:
-				if(matrix[bloco.i+1][bloco.j - 1] == symbol  || bloco.i == ROWS - 2){
-					printf("Marcando\n");
+		if(bloco.orientacao == ORIENTACAO_DOWN |  bloco.orientacao == ORIENTACAO_UP){
+				if(matrix[bloco.i+1][bloco.j] == symbol  || bloco.i == ROWS - 2){
+					//printf("Marcando\n");
 					mark(matrix,symbol,bloco);
 					bloco.i = 1;
 					bloco.j = COLUMNS/2;
-					break;
-				}	
-				case ORIENTACAO_LEFT:
-				case ORIENTACAO_RIGHT:
+				}
+		}
+		if(bloco.orientacao == ORIENTACAO_LEFT |  bloco.orientacao == ORIENTACAO_RIGHT){	
 				if(bloco.i == ROWS - 2 || matrix[bloco.i + 1][bloco.j -2] == symbol || matrix[bloco.i + 1][bloco.j - 1] == symbol
 					|| matrix[bloco.i + 1][bloco.j] == symbol|| matrix[bloco.i + 1][bloco.j + 1] == symbol|| matrix[bloco.i + 1][bloco.j + 2] == symbol){
 						mark(matrix,symbol,bloco);
 						bloco.i = 1;
-						bloco.j = COLUMNS/2;
-						break;			
+						bloco.j = COLUMNS/2;		
 					}
-
 		}
+		
 	}
 	return bloco;
 }
