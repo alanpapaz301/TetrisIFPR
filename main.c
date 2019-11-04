@@ -20,15 +20,12 @@ int main(){
     int runTime,symbolWidth,i,j,score,aux;
     char dir = 'K';
     char symbol = '#';
-    int speedControl = 15;
+    int speedControl = 5;
 	score = 0;
-    //bloco.icao inicial do personagem
     bloco.i = 1;
     bloco.j = COLUMNS/2;
     bloco.tipo = 7;
     bloco.orientacao = 3;
-    bloco.width = 5;
-    bloco.height = 1;
     //inicializando matriz
     init(matrix);
 
@@ -68,18 +65,21 @@ int main(){
         if(kbhit()) dir=getch();
 			//Mudança de orientação
 			if(dir == 'f'){
-				if(bloco.j-(bloco.width/2) + 1 < 2)bloco.j++;
-				if(bloco.j+(bloco.width/2) + 1 > COLUMNS-2)bloco.j--;
 				if (bloco.orientacao == 4) bloco.orientacao = 1;
 				else bloco.orientacao++;
+				
 				aux = bloco.width;
 				bloco.width = bloco.height;
 				bloco.height = aux;
+				if(bloco.j<(bloco.width/2)) bloco.j = bloco.width/2;
+				else if(bloco.j>COLUMNS-(bloco.width/2) - 1 )bloco.j = COLUMNS - (bloco.width/2) - 1;
+
+
 				dir = ' ';
 			}
         //movimento a esquerda
 		if(dir == LEFT | dir == LEFT_C){
-            if(matrix[bloco.i][bloco.j - (bloco.width / 2 +1)] !=symbol && bloco.j-(bloco.width/2) + 1 >2){
+            if(matrix[bloco.i][bloco.j - (bloco.width / 2)] !=symbol && bloco.j-(bloco.width/2)>0){
                 
                 bloco.j--;
                 dir = ' ';
@@ -87,7 +87,7 @@ int main(){
         }
         //movimento a direita  
 		if(dir == RIGHT | dir== RIGHT_C){		
-			if(matrix[bloco.i][bloco.j + (bloco.width/2) + 1] !=symbol && bloco.j+(bloco.width/2) + 1<COLUMNS-1){
+			if(matrix[bloco.i][bloco.j + (bloco.width/2)] !=symbol && bloco.j+(bloco.width/2)<COLUMNS-1){
                 
                 bloco.j++;
                 dir = ' ';
