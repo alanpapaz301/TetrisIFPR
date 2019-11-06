@@ -47,10 +47,15 @@ void drawBlock(char matrix[ROWS][COLUMNS],char symbol,int count,Block bloco){
 	//count determina se deve ser feito desenho ou chamada função para apagar blocos
 	if(count == 2 ){
 		if(bloco.tipo == TIPO_O ){
+			if(bloco.i - 1>=2)matrix[bloco.i-2][bloco.j] = symbol;
+			if(bloco.i - 1>=2)matrix[bloco.i-2][bloco.j+1] = symbol;
+			if(bloco.i - 1>=2)matrix[bloco.i-2][bloco.j-1] = symbol;
 			if(bloco.i - 1>=1)matrix[bloco.i-1][bloco.j] = symbol;
 			if(bloco.i - 1>=1)matrix[bloco.i-1][bloco.j+1] = symbol;
+			if(bloco.i - 1>=1)matrix[bloco.i-1][bloco.j-1] = symbol;
 			if(bloco.i - 1>=1)matrix[bloco.i][bloco.j] = symbol;
 			if(bloco.i - 1>=1)matrix[bloco.i][bloco.j+1] = symbol;
+			if(bloco.i - 1>=1)matrix[bloco.i][bloco.j-1] = symbol;
 		}	
 		if(bloco.tipo == TIPO_I ){
 			switch(bloco.orientacao){
@@ -83,10 +88,15 @@ void eraseBlock(char matrix[ROWS][COLUMNS],Block bloco){
 		
 		
 		if(bloco.tipo == TIPO_O){
-				matrix[bloco.i][bloco.j] = ' ';
-				matrix[bloco.i][bloco.j+1] = ' ';
-				matrix[bloco.i-1][bloco.j] = ' ';
-				matrix[bloco.i-1][bloco.j+1] = ' ';
+			matrix[bloco.i-2][bloco.j] = EMPTY;
+			matrix[bloco.i-2][bloco.j+1] = EMPTY;
+			matrix[bloco.i-2][bloco.j-1] = EMPTY;
+			matrix[bloco.i-1][bloco.j] = EMPTY;
+			matrix[bloco.i-1][bloco.j+1] = EMPTY;
+			matrix[bloco.i-1][bloco.j-1] = EMPTY;
+			matrix[bloco.i][bloco.j] = EMPTY;
+			matrix[bloco.i][bloco.j+1] = EMPTY;
+			matrix[bloco.i][bloco.j-1] = EMPTY;
 		}
 		if(bloco.tipo = TIPO_I){
 			switch(bloco.orientacao){
@@ -115,7 +125,7 @@ Block checkCollision(char matrix[ROWS][COLUMNS],char symbol,Block bloco){
 
 	
 	if(bloco.tipo == TIPO_O){
-		if(matrix[bloco.i+1][bloco.j] == symbol || matrix[bloco.i+1][bloco.j+1] == symbol || bloco.i == ROWS-1){
+		if(matrix[bloco.i+1][bloco.j] == symbol || matrix[bloco.i+1][bloco.j+1] == symbol ||matrix[bloco.i+1][bloco.j-1] == symbol || bloco.i == ROWS-1){
 			mark(matrix,symbol,bloco); 
 			bloco.i = 1;
 			bloco.j = COLUMNS/2;
@@ -147,10 +157,15 @@ void mark(char matrix[ROWS][COLUMNS],char symbol,Block bloco){
 		
 		
 		if(bloco.tipo == TIPO_O){
-			matrix[bloco.i][bloco.j] = symbol;
-			matrix[bloco.i][bloco.j+1] = symbol;
+			matrix[bloco.i-2][bloco.j] = symbol;
+			matrix[bloco.i-2][bloco.j+1] = symbol;
+			matrix[bloco.i-2][bloco.j-1] = symbol;
 			matrix[bloco.i-1][bloco.j] = symbol;
 			matrix[bloco.i-1][bloco.j+1] = symbol;
+			matrix[bloco.i-1][bloco.j-1] = symbol;
+			matrix[bloco.i][bloco.j] = symbol;
+			matrix[bloco.i][bloco.j+1] = symbol;
+			matrix[bloco.i][bloco.j-1] = symbol;
 		}
 		if(bloco.tipo == TIPO_I){
 			switch(bloco.orientacao){

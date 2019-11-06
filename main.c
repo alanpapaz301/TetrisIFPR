@@ -16,6 +16,7 @@
 */
 int main(){
 	Block bloco;
+	Block backup;
     char matrix[ROWS][COLUMNS];
     int runTime,symbolWidth,i,j,score,aux;
     char dir = 'K';
@@ -24,7 +25,7 @@ int main(){
 	score = 0;
     bloco.i = 1;
     bloco.j = COLUMNS/2;
-    bloco.tipo = 7;
+    bloco.tipo = 6;
     bloco.orientacao = 3;
     //inicializando matriz
     init(matrix);
@@ -35,8 +36,8 @@ int main(){
     for(runTime=0;runTime<=speedControl;runTime++){
 		//CONFIGURAÇÃO DE ALTURA E LARGURA BASEADO NA PEÇA
 		if(bloco.tipo == TIPO_O){
-			bloco.width = 2;
-			bloco.height = 2;
+			bloco.width = 3;
+			bloco.height = 3;
 		}
 		if(bloco.tipo == TIPO_I){
 			if(bloco.orientacao == ORIENTACAO_DOWN |  bloco.orientacao == ORIENTACAO_UP){

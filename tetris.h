@@ -5,7 +5,7 @@
 #define COLUMNS 20
 #define ROWS 25
 
-
+#define EMPTY 32
 #define LEFT 97
 #define RIGHT 100
 #define LEFT_C 65
